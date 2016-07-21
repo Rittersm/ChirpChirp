@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-
+  before_action :require_user
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = current_user.posts
 
     render json: @posts
   end
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -41,11 +41,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = current_user.posts.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:body, :user_id)
+      params.permit(:body)
     end
 end
