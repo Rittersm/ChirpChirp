@@ -12,13 +12,14 @@ user = 100.times.map do
     email: Faker::Internet.safe_email,
     password: "password",
     password_confirmation: "password",
-    avatar: "https://unsplash.it/300/300?image=#{rand(1084)}"
+    avatar: "https://unsplash.it/300/300?image=#{rand(1084)}",
+    created_at: Faker::Date.between(7.months.ago, Date.today)
   )
 end
 
 2000.times do
   Post.create!(
-    body: Faker::Lorem.characters(165),
+    body: Faker::Lorem.words(12),
     user: user.sample,
     created_at: Faker::Date.between(6.months.ago, Date.today)
     )

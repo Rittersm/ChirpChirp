@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    render json: @user.posts
   end
 
   # POST /users
@@ -23,6 +23,20 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
+
+  def login
+    if @user = User.find_by(email: params[:email])
+      if @user.authenticate(params[:password])
+        render json: @user
+      else
+        render json: {errors: [{error: "Incorrect Password"}]}, status: :unprocessable_entity
+      end
+    else
+      render json: {errors: [{error: "Incorrect Password"}]}, status: :unprocessable_entity
+    end
+  end
+
+
 
   # PATCH/PUT /users/1
   def update

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true, format: {:with => /\A[a-z0-9\-_]+\z/}
   validates :email, presence: true, uniqueness: true, format: {:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/}
+  validates :avatar, presence: true
   validates :api_token, presence: true, uniqueness: true
 
   before_validation :generate_api_token, on: :create
