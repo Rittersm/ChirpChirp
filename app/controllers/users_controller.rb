@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users, serializer: SimpleUserSerializer
   end
 
   # GET /users/1
   def show
-    render json: @user.posts
+    render json: @user.posts, serializer: SimpleUserSerializer
   end
 
   # POST /users
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
     if @user.save
       render json: @user, status: :created, location: @user
+      render json: @user, serializer: CompleteUserSerializer
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   def login
     if @user = User.find_by(email: params[:email])
       if @user.authenticate(params[:password])
-        render json: @user
+        render json: @user, serializer: CompleteUserSerializer
       else
         render json: {error: "Incorrect Password"}, status: :unprocessable_entity
       end
