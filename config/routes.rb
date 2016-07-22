@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   post "/signup" => "users#create"
   post "/login" => "users#login"
-  get "/timeline" => "users#show"
+  get "/timeline" => "users#timeline"
   post "/follow" => "users#follow"
   post "/unfollow" => "users#unfollow"
   get "/following" => "users#following"

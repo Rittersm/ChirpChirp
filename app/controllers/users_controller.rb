@@ -1,16 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :require_user, except: [:create, :login]
 
   # GET /users
   def index
     @users = User.all
 
-    render json: @users, serializer: SimpleUserSerializer
+    render json: @users, each_serializer: SimpleUserSerializer
   end
 
   # GET /users/1
   def show
-    render json: @user.posts, serializer: SimpleUserSerializer
+    render json: current_user
+  end
+
+  def timeline
+    render json: current_user.timeline
   end
 
   # POST /users
