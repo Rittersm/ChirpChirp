@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+user = 100.times.map do
+  User.create!(
+    username: Faker::Internet.user_name(nil, %w(_-)),
+    email: Faker::Internet.safe_email,
+    password: "password",
+    password_confirmation: "password",
+    avatar: "https://unsplash.it/300/300?image=#{rand(1084)}"
+  )
+end
+
+2000.times do
+  Post.create!(
+    body: Faker::Lorem.characters(165),
+    user: user.sample,
+    created_at: Faker::Date.between(6.months.ago, Date.today)
+    )
+end

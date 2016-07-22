@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   def generate_api_token
     while api_token.blank? || User.exists?(api_token: api_token)
-      self.api_token = SecureRandom.base64(20)
+      self.api_token = SecureRandom.hex(20)
     end
   end
 end
