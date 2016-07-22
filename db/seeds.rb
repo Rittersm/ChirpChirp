@@ -19,8 +19,17 @@ end
 
 2000.times do
   Post.create!(
-    body: Faker::Lorem.words(12),
+    body: Faker::Hipster.sentence(5),
     user: user.sample,
     created_at: Faker::Date.between(6.months.ago, Date.today)
     )
+end
+
+500.times do
+  user1 = user.sample
+  user2 = nil
+  until !user2.blank? && user2 != user1
+    user2 = user.sample
+  end
+  user1.follow!(user2)
 end

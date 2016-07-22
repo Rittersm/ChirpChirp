@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   post "/signup" => "users#create"
   post "/login" => "users#login"
   get "/timeline" => "users#show"
-  # post "/follow" => ""
-  # post "/unfollow" => ""
-  # post "/user_list" => ""
-  post "/post_tweet" => "post#create"
+  post "/follow" => "users#follow"
+  post "/unfollow" => "users#unfollow"
+  get "/following" => "users#following"
+  post "/post" => "posts#create"
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

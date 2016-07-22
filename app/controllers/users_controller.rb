@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -29,11 +29,23 @@ class UsersController < ApplicationController
       if @user.authenticate(params[:password])
         render json: @user
       else
-        render json: {errors: [{error: "Incorrect Password"}]}, status: :unprocessable_entity
+        render json: {error: "Incorrect Password"}, status: :unprocessable_entity
       end
     else
-      render json: {errors: [{error: "Incorrect Password"}]}, status: :unprocessable_entity
+      render json: {error: "Unrecognized Email"}, status: :unprocessable_entity
     end
+  end
+
+  def follow
+    current_user.follow!(User.find_by(username: params[:username]))
+  end
+
+  def unfollow
+    current_user.unfollow!(User.find_by(username: params[:username]))
+  end
+
+  def following
+    render json: current_user.followees(User)
   end
 
 
@@ -60,6 +72,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.permit(:username, :email, :password, :password_confirmation, :avatar)
+      params.permit(:username, :email, :password, :avatar)
     end
 end
