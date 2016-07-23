@@ -12,7 +12,7 @@ user = 100.times.map do
     email: Faker::Internet.safe_email,
     password: "password",
     password_confirmation: "password",
-    avatar: "https://robohash.org/#{rand(5000)}.png",
+    avatar: "https://robohash.org/#{rand(5000)}.png?bgset=bg1",
     created_at: Faker::Time.between(8.months.ago, 7.months.ago, :all)
   )
 end
