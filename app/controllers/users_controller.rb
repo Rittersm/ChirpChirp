@@ -55,6 +55,7 @@ class UsersController < ApplicationController
       end
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
+    end
   end
 
   def unfollow
@@ -63,6 +64,7 @@ class UsersController < ApplicationController
         render json: current_user, serializer: SimpleUserSerializer
     else
       render json: {error: "You Were Not Following This Person"}, status: :conflict
+    end
   end
 
   def following
