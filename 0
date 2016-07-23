@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20160723173301_add_followee_count_to_user.rb
