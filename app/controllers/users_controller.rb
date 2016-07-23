@@ -48,13 +48,21 @@ class UsersController < ApplicationController
   end
 
   def follow
-    current_user.follow!(User.find_by(username: params[:username]))
-      render json: current_user, serializer: SimpleUserSerializer
+    if !current_user.follows?(User.find_by(id: params[:id]))
+      current_user.follow!(User.find_by(id: params[:id]))
+      if current_user.follow!
+        render json: current_user, serializer: SimpleUserSerializer
+      end
+    else
+      render json: {error: "You Already Follow This Person"}, status: :conflict
   end
 
   def unfollow
-    current_user.unfollow!(User.find_by(username: params[:username]))
-      render json: current_user, serializer: SimpleUserSerializer
+    if current_user.follows?(User.find_by(id: params[:id]))
+      current_user.unfollow!(User.find_by(id: params[:id]))
+        render json: current_user, serializer: SimpleUserSerializer
+    else
+      render json: {error: "You Were Not Following This Person"}, status: :conflict
   end
 
   def following

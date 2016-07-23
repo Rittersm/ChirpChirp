@@ -1,2 +1,2 @@
       invoke  active_record
-      create    db/migrate/20160723173301_add_followee_count_to_user.rb
+      create    db/migrate/20160723193844_add_follower_count_to_user.rb
