@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :require_user
   # GET /posts
   def index
-    @posts = current_user.posts
+    @posts = current_user
 
     render json: @posts
   end

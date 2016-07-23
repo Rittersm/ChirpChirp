@@ -1,4 +1,4 @@
-class SimpleUserSerializer < ActiveModel::Serializer
+class UserPostSerializer < ActiveModel::Serializer
 
   attributes :id, :username, :email, :avatar, :created_at, :followees
 
@@ -7,7 +7,7 @@ class SimpleUserSerializer < ActiveModel::Serializer
   end
 
   has_many :followees
-  has_many :posts
+  has_many :timeline_posts
 
 
 end

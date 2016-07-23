@@ -6,17 +6,22 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users, each_serializer: SimpleUserSerializer
+    render json: @users, each_serializer: UserListSerializer
   end
 
   # GET /users/1
   def show
-    render json: current_user
+    render json: current_user, serializer: SimpleUserSerializer
   end
 
   def timeline
-    render json: current_user.timeline
+    render json: current_user, serializer: UserPostSerializer
   end
+
+  def personal
+    render json: current_user, serializer: SimpleUserSerializer
+  end
+
 
   # POST /users
   def create
@@ -44,17 +49,17 @@ class UsersController < ApplicationController
 
   def follow
     current_user.follow!(User.find_by(username: params[:username]))
+      render json: current_user, serializer: SimpleUserSerializer
   end
 
   def unfollow
     current_user.unfollow!(User.find_by(username: params[:username]))
+      render json: current_user, serializer: SimpleUserSerializer
   end
 
   def following
     render json: current_user.followees(User)
   end
-
-
 
   # PATCH/PUT /users/1
   def update

@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   before_validation :generate_api_token, on: :create
 
-  def timeline
+  def timeline_posts
     following_ids = self.followees(User).pluck(:id)
     all_ids = following_ids << self.id
     Post.where(user_id: all_ids).order("created_at DESC")

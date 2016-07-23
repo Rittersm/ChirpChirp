@@ -12,8 +12,8 @@ user = 100.times.map do
     email: Faker::Internet.safe_email,
     password: "password",
     password_confirmation: "password",
-    avatar: "https://unsplash.it/300/300?image=#{rand(1084)}",
-    created_at: Faker::Date.between(7.months.ago, Date.today)
+    avatar: "https://robohash.org/#{rand(5000)}.png",
+    created_at: Faker::Time.between(8.months.ago, 7.months.ago, :all)
   )
 end
 
@@ -21,7 +21,7 @@ end
   Post.create!(
     body: Faker::Hipster.sentence(5),
     user: user.sample,
-    created_at: Faker::Date.between(6.months.ago, Date.today)
+    created_at: Faker::Time.between(6.months.ago, Date.today, :all)
     )
 end
 

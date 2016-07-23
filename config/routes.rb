@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post "/unfollow" => "users#unfollow"
   get "/following" => "users#following"
   post "/post" => "posts#create"
+  get "/personal" => "users#personal"
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
