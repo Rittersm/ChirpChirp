@@ -66,11 +66,11 @@ class UsersController < ApplicationController
   end
 
   def following
-    render json: current_user.followees(User)
+    render json: current_user, serializer: FollowingSerializer
   end
 
   def followers
-    render json: current_user.followers(User)
+    render json: current_user, serializer: FollowersSerializer
   end
 
   # PATCH/PUT /users/1
