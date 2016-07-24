@@ -48,11 +48,9 @@ class UsersController < ApplicationController
   end
 
   def follow
-    if !current_user.follows?(User.find_by(id: params[:id]))
+    unless current_user.follows?(User.find_by(id: params[:id]))
       current_user.follow!(User.find_by(id: params[:id]))
-      if current_user.follow!
         render json: current_user, serializer: SimpleUserSerializer
-      end
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
     end
