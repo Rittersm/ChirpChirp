@@ -19,6 +19,10 @@ class User < ApplicationRecord
     Post.where(user_id: all_ids).order("created_at DESC")
   end
 
+  def self.searched_users(params)
+    @searched_users = User.where('username ILIKE ?', "%#{params}%".downcase)
+  end
+
   private
 
   def generate_api_token

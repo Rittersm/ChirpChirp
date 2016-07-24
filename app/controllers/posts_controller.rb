@@ -38,6 +38,14 @@ class PostsController < ApplicationController
     @post.destroy
   end
 
+  def search
+    @found_posts = Post.searched_posts(params[:search])
+    @found_users = User.searched_users(params[:search])
+    @search_results = @found_users += @found_posts
+    render json: @search_results
+ end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -48,4 +56,5 @@ class PostsController < ApplicationController
     def post_params
       params.permit(:body)
     end
+
 end
