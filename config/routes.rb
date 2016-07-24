@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/follow" => "users#follow"
   post "/unfollow" => "users#unfollow"
   get "/following" => "users#following"
+  get "/followers" => "users#followers"
   post "/post" => "posts#create"
   get "/personal" => "users#personal"
   get "/search" => "posts#search"

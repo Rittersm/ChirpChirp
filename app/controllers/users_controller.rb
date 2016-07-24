@@ -69,6 +69,10 @@ class UsersController < ApplicationController
     render json: current_user.followees(User)
   end
 
+  def followers
+    render json: current_user.followers(User)
+  end
+
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
