@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post "/signup" => "users#create"
   post "/login" => "users#login"
   get "/timeline" => "users#timeline"
+  get "/chirps" => "users#show"
   post "/follow" => "users#follow"
   post "/unfollow" => "users#unfollow"
   get "/following" => "users#following"

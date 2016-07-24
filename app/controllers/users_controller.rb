@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: current_user, serializer: SimpleUserSerializer
+    render json: User.find_by(id: params[:id]), serializer: SimpleUserSerializer
   end
 
   def timeline
