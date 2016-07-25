@@ -1,6 +1,6 @@
 class UserPostSerializer < ActiveModel::Serializer
 
-  attributes :id, :username, :email, :avatar, :followees_count, :followers_count, :created_at, :followees, :followers
+  attributes :id, :username, :email, :avatar, :followees_count, :followers_count, :created_at
 
   def followees
     object.followees(User)
@@ -10,8 +10,8 @@ class UserPostSerializer < ActiveModel::Serializer
     object.followers(User)
   end
 
-  has_many :followees
-  has_many :followers
+  has_many :followees, serializer: UserListSerializer
+  has_many :followers, serializer: UserListSerializer
   has_many :timeline_posts
 
 

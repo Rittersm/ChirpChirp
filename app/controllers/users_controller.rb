@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: User.find_by(id: params[:id]), serializer: SimpleUserSerializer
+    render json: User.find(params[:id]), serializer: SimpleUserSerializer
   end
 
   def timeline
@@ -48,8 +48,8 @@ class UsersController < ApplicationController
   end
 
   def follow
-    unless current_user.follows?(User.find_by(id: params[:id]))
-      current_user.follow!(User.find_by(id: params[:id]))
+    unless current_user.follows?(User.find(params[:id]))
+      current_user.follow!(User.find(params[:id]))
         render json: current_user, serializer: SimpleUserSerializer
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
@@ -57,8 +57,8 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    if current_user.follows?(User.find_by(id: params[:id]))
-      current_user.unfollow!(User.find_by(id: params[:id]))
+    if current_user.follows?(User.find(params[:id]))
+      current_user.unfollow!(User.find(params[:id]))
         render json: current_user, serializer: SimpleUserSerializer
     else
       render json: {error: "You Were Not Following This Person"}, status: :conflict
