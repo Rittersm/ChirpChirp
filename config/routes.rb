@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get "/following" => "users#following"
   get "/followers" => "users#followers"
   post "/post" => "posts#create"
-  get "/personal" => "users#show"
   get "/search" => "posts#search"
 
 
