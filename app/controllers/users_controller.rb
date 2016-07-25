@@ -20,24 +20,24 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: User.find(params[:id]), serializer: SimpleUserSerializer
+    if params[:id] == 'me'
+      @user = current_user
+      render json: @user, serializer: SimpleUserSerializer
+    else
+      @user = User.find(params[:id])
+      render json: @user, serializer: SimpleUserSerializer
+    end
   end
 
   def timeline
     render json: current_user, serializer: UserPostSerializer
   end
 
-  def personal
-    render json: current_user, serializer: SimpleUserSerializer
-  end
-
-
   # POST /users
   def create
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
       render json: @user, serializer: CompleteUserSerializer
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   def follow
     unless current_user.follows?(User.find(params[:id]))
       current_user.follow!(User.find(params[:id]))
-        render json: @user
+        render json: current_user.reload, serializer: FollowingSerializer
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
     end
@@ -68,18 +68,30 @@ class UsersController < ApplicationController
   def unfollow
     if current_user.follows?(User.find(params[:id]))
       current_user.unfollow!(User.find(params[:id]))
-        render json: @user
+        render json: current_user.reload, serializer: FollowingSerializer
     else
       render json: {error: "You Were Not Following This Person"}, status: :conflict
     end
   end
 
   def following
-    render json: current_user, serializer: FollowingSerializer
+    if params[:id] == 'me'
+      @user = current_user
+      render json: @user, serializer: FollowingSerializer
+    else
+      @user = User.find(params[:id])
+      render json: @user, serializer: FollowingSerializer
+    end
   end
 
   def followers
-    render json: current_user, serializer: FollowersSerializer
+    if params[:id] == 'me'
+      @user = current_user
+      render json: @user, serializer: FollowersSerializer
+    else
+      @user = User.find(params[:id])
+      render json: @user, serializer: FollowersSerializer
+    end
   end
 
   # PATCH/PUT /users/1
