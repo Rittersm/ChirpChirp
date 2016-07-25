@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      UserUpdatesMailer.send_signup_email(@user).deliver_later
+      UserUpdatesMailer.signup_email(@user).deliver_later
       render json: @user, serializer: CompleteUserSerializer
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
