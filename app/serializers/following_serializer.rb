@@ -6,6 +6,6 @@ class FollowingSerializer < ActiveModel::Serializer
     object.followees(User)
   end
 
-  has_many :followees, serializer: UserListSerializer
+  has_many :followees
 
 end
