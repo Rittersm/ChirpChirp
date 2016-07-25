@@ -1,12 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :require_user, except: [:create, :login]
-
   # GET /users
   def index
-    @users = User.all
-
-    render json: @users, each_serializer: UserListSerializer
+    @users = User.where.not(id: current_user.id)
+    @users_following = []
+    @users_notfollowing = []
+    @users.each do |user|
+      if current_user.follows?(user)
+        @users_following << user
+      else
+        @users_notfollowing << user
+      end
+    end
+    @users_following += @users_notfollowing
+    @users = @users_following
+    render json: @users, scope: current_user, scope_name: :current_user
   end
 
   # GET /users/1
@@ -50,7 +59,7 @@ class UsersController < ApplicationController
   def follow
     unless current_user.follows?(User.find(params[:id]))
       current_user.follow!(User.find(params[:id]))
-        render json: current_user, serializer: SimpleUserSerializer
+        render json: @user
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
     end
@@ -59,7 +68,7 @@ class UsersController < ApplicationController
   def unfollow
     if current_user.follows?(User.find(params[:id]))
       current_user.unfollow!(User.find(params[:id]))
-        render json: current_user, serializer: SimpleUserSerializer
+        render json: @user
     else
       render json: {error: "You Were Not Following This Person"}, status: :conflict
     end

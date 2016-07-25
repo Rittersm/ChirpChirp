@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 170 }
 
+  default_scope { order(created_at: :desc) }
+
   def self.searched_posts(params)
     @searched_posts = Post.where('body ILIKE ?', "%#{params}%".downcase)
   end

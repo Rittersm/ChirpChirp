@@ -10,8 +10,8 @@ class SimpleUserSerializer < ActiveModel::Serializer
     object.followers(User)
   end
 
-  has_many :followees, serializer: UserListSerializer
-  has_many :followers, serializer: UserListSerializer
+  has_many :followees
+  has_many :followers
   has_many :posts
 
 
