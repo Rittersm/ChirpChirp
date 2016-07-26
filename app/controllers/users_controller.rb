@@ -60,6 +60,7 @@ class UsersController < ApplicationController
   def follow
     unless current_user.follows?(User.find(params[:id]))
       current_user.follow!(User.find(params[:id]))
+        UserUpdatesMailer.following_email(User.find(params[:id]), current_user).deliver_later
         render json: current_user.reload, serializer: FollowingSerializer
     else
       render json: {error: "You Already Follow This Person"}, status: :conflict
