@@ -1,4 +1,4 @@
-# ChirpChirp
+# ChirpChirp Read Me and Documentation
 
 Heroku site: https://calm-beach-80027.herokuapp.com
 
@@ -81,7 +81,7 @@ GET https://calm-beach-80027.herokuapp.com/timeline
         }
       ]
     }
-    
+
 GET https://calm-beach-80027.herokuapp.com/users
 
     - GET List of All users
