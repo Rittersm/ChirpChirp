@@ -81,7 +81,7 @@ GET https://calm-beach-80027.herokuapp.com/timeline
         }
       ]
     }
-    
+
 GET https://calm-beach-80027.herokuapp.com/users
 
     - GET List of All users
@@ -164,6 +164,7 @@ GET https://calm-beach-80027.herokuapp.com/chirps
               "created_at": "2015-12-01T07:01:06.000Z"
             }
           } ... ]
+      }  
 
     On Failure (No ID exists):
       status: 404 Not found
@@ -254,7 +255,7 @@ GET https://calm-beach-80027.herokuapp.com/following
           "is_following": true,
           "created_at": "2015-12-11T04:25:16.000Z"
         }, ... ]
-      }    
+    }    
 
     On Failure (No ID exists):
       404 Not Found
