@@ -7,7 +7,7 @@ class Post < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
   def self.searched_posts(params)
-    @searched_posts = Post.where('body ILIKE ?', "%#{params}%".downcase)
+    where('body ILIKE ?', "%#{params}%".downcase)
   end
 
 end

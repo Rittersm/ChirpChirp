@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def self.searched_users(params)
-    @searched_users = User.where('username ILIKE ?', "%#{params}%".downcase)
+    where('username ILIKE ?', "%#{params}%".downcase)
   end
 
   private
