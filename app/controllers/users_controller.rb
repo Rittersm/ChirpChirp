@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :require_user, except: [:create, :login]
+  before_action :require_user, except: [:create, :login, :timeline]
   # GET /users
   def index
     @users = User.where.not(id: current_user.id)
@@ -30,7 +30,12 @@ class UsersController < ApplicationController
   end
 
   def timeline
-    render json: current_user, serializer: UserPostSerializer
+    if current_user
+      render json: current_user, serializer: UserPostSerializer
+    else
+      @posts = Post.all
+      render json: @posts
+    end
   end
 
   # POST /users
