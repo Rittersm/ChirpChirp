@@ -1,4 +1,4 @@
-# ChirpChirp
+# ChirpChirp Read Me and Documentation
 
 Heroku site: https://calm-beach-80027.herokuapp.com
 
