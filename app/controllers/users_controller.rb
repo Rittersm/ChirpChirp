@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if current_user
       render json: current_user, serializer: UserPostSerializer
     else
-      @posts = Post.all.take(20)
+      @posts = Post.all
       render json: @posts
     end
   end
