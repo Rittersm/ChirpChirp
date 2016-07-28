@@ -6,9 +6,7 @@ class Post < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
-  def self.per_page
-    50
-  end
+  paginates_per 50
 
   def self.searched_posts(params)
     where('body ILIKE ?', "%#{params}%".downcase)
