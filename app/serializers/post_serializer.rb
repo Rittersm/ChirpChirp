@@ -1,6 +1,6 @@
 class PostSerializer < ActiveModel::Serializer
 
-  attributes :body, :created_at, :user
+  attributes :body, :created_at, :user, :count
 
   def user
     {
@@ -12,6 +12,10 @@ class PostSerializer < ActiveModel::Serializer
       followers_count: object.user.followers_count,
       created_at: object.user.created_at
     }
+  end
+
+  def count
+    Post.all.length
   end
 
 end
