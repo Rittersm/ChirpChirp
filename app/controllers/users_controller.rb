@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if current_user
       render json: current_user, serializer: UserPostSerializer
     else
-      @posts = Post.all
+      @posts = Post.all.page
       render json: @posts
     end
   end
